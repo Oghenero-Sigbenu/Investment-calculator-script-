@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Simple Interest</title>
+</head>
+<style type="text/css">
+    #multiple {
+        display: none;
+    }
+
+    #single div,
+    #multiple div {
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        margin: 15px;
+    }
+
+    input,
+    button {
+        border-radius: 5px;
+        border: none;
+        border: 1px solid gray;
+        padding: 5px;
+    }
+
+    button {
+        margin: 5px;
+    }
+</style>
+
+<body>
+    <div>
+        <label>Single Cashflow</label>
+        <input type="radio" value="One-time" name="rate" checked id="oneTime" onclick="check()" />
+        <label>Multiple Cashflow</label>
+        <input type="radio" value="two-time" name="rate" id="twoTime" onclick="check()" />
+    </div>
+    <div id="single">
+        <div>
+            <label for="">Starting Amount</label>
+            <input type="number" id="cf0" />
+        </div>
+        <div>
+            <label for="">Intrest Rate</label>
+            <input type="number" id="rate" />
+        </div>
+        <div>
+            <label for="">Years</label>
+            <input type="number" placeholder="Time" id="time" />
+        </div>
+        <button onclick="simpl()" id="show">Calculate</button>
+    </div>
+    <div id="multiple">
+        <div>
+            <label for="">Initial amount</label>
+            <input type="number" id="cf02" />
+        </div>
+        <div>
+            <label for="">Intrest rate</label>
+            <input type="number" id="rate2" />
+        </div>
+        <div>
+            <label for="">Time</label>
+            <input type="number" id="time2" />
+        </div>
+        <div>
+            <label for="">Additional Contribution</label>
+            <input type="number" id="cf12" />
+        </div>
+        <button onclick="yeild()" id="show">Calculate</button>
+    </div>
+    <h3 id="result"></h3>
+    <script type="text/javascript">
+        
+        function simpl() {
+            var cf0, r, t, cf1;
+            cf0 = parseInt(document.getElementById("cf0").value);
+            r = parseInt(document.getElementById("rate").value);
+            t = parseInt(document.getElementById("time").value);
+            result = document.getElementById("result");
+            var si = cf0*(1 + r)**t;
+            var returns = si.toLocaleString();
+            result.innerHTML = "Expected yield is: "  + "₦"  + returns;
+        };
+        
+        function yeild() {
+            var cf0, r, t, cf1;
+            cf0 = parseInt(document.getElementById("cf02").value);
+            r = parseInt(document.getElementById("rate2").value);
+            t = parseInt(document.getElementById("time2").value);
+            cf1 = parseInt(document.getElementById("cf12").value);
+            result = document.getElementById("result");
+            var si = cf0*((1 + r)**t) + cf1*(1 + r)**(t - 1);
+            var returns = si.toLocaleString();
+            result.innerHTML = "Expected yield is: "  + "₦"  + returns;
+        };
+
+        function check() {
+            var radios = document.getElementsByName('rate');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[0].checked) {
+                    document.getElementById("single").style.display = "block";
+                    document.getElementById("multiple").style.display = "none";
+                } else {
+                    document.getElementById("multiple").style.display = "block";
+                    document.getElementById("single").style.display = "none";
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
